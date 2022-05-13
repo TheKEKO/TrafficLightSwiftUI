@@ -21,13 +21,13 @@ struct ContentView: View {
             VStack {
                 ColorCircleView(color: .red).opacity(redLight)
                     .overlay(Circle().stroke(Color.white, lineWidth: 3))
-                    .padding(.bottom, 10.0)
+                    .padding(.bottom, 15.0)
                 ColorCircleView(color: .yellow).opacity(yellowLight)
                     .overlay(Circle().stroke(Color.white, lineWidth: 3))
-                    .padding(.bottom, 10.0)
+                    .padding(.bottom, 15.0)
                 ColorCircleView(color: .green).opacity(greenLight)
                     .overlay(Circle().stroke(Color.white, lineWidth: 3))
-                    .padding(.bottom, 10.0)
+                    .padding(.bottom, 15.0)
                 Spacer()
                 Button(action: changeColor) {
                     Text(buttonTitle)
