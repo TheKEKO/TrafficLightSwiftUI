@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ColorCircleView: View {
+    
     let color: Color
     
     var body: some View {

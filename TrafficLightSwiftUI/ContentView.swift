@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var redLight = 0.4
-    @State var yellowLight = 0.4
-    @State var greenLight = 0.4
-    @State var buttonTitle = "START"
+    @State private var redLight = 0.4
+    @State private var yellowLight = 0.4
+    @State private var greenLight = 0.4
+    @State private var buttonTitle = "START"
     
     var body: some View {
         ZStack{
@@ -36,7 +36,8 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .frame(width: 160, height: 50)
                         .background(Color.blue)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white, lineWidth: 6))
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.white, lineWidth: 6))
                         .cornerRadius(10)
                 }
             }
