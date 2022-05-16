@@ -7,58 +7,63 @@
 
 import SwiftUI
 
+enum CurrentLight {
+    case red, yellow, green
+}
+
 struct ContentView: View {
     
     @State private var redLight = 0.4
     @State private var yellowLight = 0.4
     @State private var greenLight = 0.4
+    
     @State private var buttonTitle = "START"
     
-    var body: some View {
-        ZStack{
-            Color.black
-                .ignoresSafeArea()
-            VStack {
-                ColorCircleView(color: .red).opacity(redLight)
-                    .overlay(Circle().stroke(Color.white, lineWidth: 3))
-                    .padding(.bottom, 15.0)
-                ColorCircleView(color: .yellow).opacity(yellowLight)
-                    .overlay(Circle().stroke(Color.white, lineWidth: 3))
-                    .padding(.bottom, 15.0)
-                ColorCircleView(color: .green).opacity(greenLight)
-                    .overlay(Circle().stroke(Color.white, lineWidth: 3))
-                    .padding(.bottom, 15.0)
-                Spacer()
-                Button(action: changeColor) {
-                    Text(buttonTitle)
-                        .fontWeight(.bold)
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .frame(width: 160, height: 50)
-                        .background(Color.blue)
-                        .overlay(RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.white, lineWidth: 6))
-                        .cornerRadius(10)
-                }
-            }
-            .padding(EdgeInsets(top: 16, leading: 0, bottom: 16, trailing: 0))
+    @State private var currentLight = CurrentLight.red
+    
+    private func nextColor() {
+        
+        let lightIsOn = 1.0
+        let lightIsOff = 0.3
+        
+        switch currentLight {
+        case .red:
+            currentLight = .yellow
+            greenLight = lightIsOff
+            redLight = lightIsOn
+        case .yellow:
+            currentLight = .green
+            redLight = lightIsOff
+            yellowLight = lightIsOn
+        case .green:
+            currentLight = .red
+            greenLight = lightIsOn
+            yellowLight = lightIsOff
         }
     }
-    
-    private func changeColor() {
-        buttonTitle = "NEXT"
-        
-        if redLight == 0.3 && yellowLight == 0.3 && greenLight == 0.3 {
-            redLight = 1
-        } else if redLight == 1 {
-            redLight = 0.3
-            yellowLight = 1
-        } else if yellowLight == 1 {
-            yellowLight = 0.3
-            greenLight = 1
-        } else {
-            greenLight = 0.3
-            redLight = 1
+}
+
+extension ContentView {
+    var body: some View {
+        ZStack {
+            Color.black
+                .ignoresSafeArea()
+            
+            VStack(spacing: 20) {
+                ColorCircleView(color: .red, opacity: redLight)
+                ColorCircleView(color: .yellow, opacity: yellowLight)
+                ColorCircleView(color: .green, opacity: greenLight)
+                
+                Spacer()
+                
+                ChangeColorButton(title: buttonTitle) {
+                    if buttonTitle == "START" {
+                        buttonTitle = "NEXT"
+                    }
+                    nextColor()
+                }
+            }
+            .padding()
         }
     }
 }
@@ -68,3 +73,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
