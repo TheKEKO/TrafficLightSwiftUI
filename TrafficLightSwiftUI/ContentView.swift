@@ -18,11 +18,9 @@ struct ContentView: View {
     @State private var greenLight = 0.4
     
     @State private var buttonTitle = "START"
-    
     @State private var currentLight = CurrentLight.red
     
     private func nextColor() {
-        
         let lightIsOn = 1.0
         let lightIsOff = 0.3
         
@@ -44,6 +42,7 @@ struct ContentView: View {
 }
 
 extension ContentView {
+    
     var body: some View {
         ZStack {
             Color.black

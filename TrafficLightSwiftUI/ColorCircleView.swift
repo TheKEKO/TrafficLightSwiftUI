@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ColorCircleView: View {
-    
     let color: Color
     let opacity: Double
     
